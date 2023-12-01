@@ -8,6 +8,7 @@ const PostSchema = new Schema({
     comments: [],
     date: {type: Date, required: true},
     likes: {type: Number, required: true, min: 0, max: 999},
+    published_status: Boolean,
 
 })
 
