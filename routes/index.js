@@ -5,8 +5,6 @@ const userController = require('../controllers/userController');
 const postController = require('../controllers/postController');
 const commentController = require('../controllers/commentController');
 
-
-
 function getToken(req, res, next) {
     const bearerAuth = req.headers['authorization'];
 
@@ -32,7 +30,6 @@ router.get('/login', userController.login_get);
 
 router.post('/login', userController.login_post);
 
-// right now, i should be getting a 403. but i'm not?
 router.get('/create_new_post', getToken, postController.post_form_get);
 
 router.post('/create_new_post', postController.post_form_post);
