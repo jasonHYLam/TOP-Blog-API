@@ -20,7 +20,7 @@ function getToken(req, res, next) {
 }
 
 /* GET home page. */
-router.get('/home', userController.home_get);
+router.get('/home', postController.home_get);
 
 router.get('/signup', userController.signup_get);
 

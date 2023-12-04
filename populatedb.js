@@ -11,7 +11,7 @@ const posts = [];
 const users = [];
 
 const mongoose = require('mongoose');
-const { post } = require('./routes');
+// const { post } = require('./routes');
 mongoose.set('strictQuery', false);
 
 const mongoDB = process.env.MONGODB_URI;

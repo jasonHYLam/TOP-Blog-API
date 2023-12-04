@@ -13,6 +13,14 @@ const asyncHandler = require('express-async-handler');
 //     res.sendStatus(403);
 // }
 
+exports.home_get = asyncHandler(async (req, res, next) => {
+    const allPosts = await Post.find({}).exec()
+    res.json({
+        message: 'Home get',
+        allPosts
+    })
+})
+
 exports.post_form_get = [
     asyncHandler(async (req, res, next) => {
         res.json({

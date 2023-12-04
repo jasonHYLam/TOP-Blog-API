@@ -5,3 +5,6 @@ node_modules/
 .prettierrc.json
 
 .env
+
+resetdb.js
+populatedb.js
