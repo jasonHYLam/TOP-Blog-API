@@ -6,7 +6,7 @@ const CommentSchema = new Schema({
     text: { type: String, required: true},
     author: { type: Schema.Types.ObjectId, ref: "User"},
     post: { type: Schema.Types.ObjectId, ref: "Post"},
-    childComments: [],
+    parentComment: { type: Schema.Types.ObjectId, ref: "Comment"},
     timeStamp: { type: Date, required: true}
 })
 
