@@ -49,3 +49,40 @@ async function createUsers() {
     ])
 }
 
+async function postCreate( index, title, text, comments, date, likes) {
+    const post = new Post({
+        title,
+        text,
+        comments: [],
+        date: Date(),
+        likes: 0,
+    });
+    await post.save();
+    posts[index] = post;
+    console.log(`Added user: ${title}`);
+}
+
+async function createPosts() {
+    console.log('Adding posts');
+    await Promise.all([
+        postCreate(0,
+            'First Blog Post',
+            'Gonna try time travelling, will update you in the next post!',
+            ),
+
+        postCreate(1,
+            'Welcome to lovetown',
+            'Tom and Merry are the heroes of Lovetown!',
+            ),
+    ])
+}
+
+async function commentCreate( index, text, author, childComments, timeStamp) {
+    const user = new User({
+        username,
+        password,
+    });
+    await user.save();
+    users[index] = user;
+    console.log(`Added user: ${username}`);
+}
