@@ -9,13 +9,13 @@ const CommentSchema = new Schema({
     text: { type: String, required: true},
     author: { type: Schema.Types.ObjectId, ref: "User"},
     post: { type: Schema.Types.ObjectId, ref: "Post"},
-    parentComment: { type: Schema.Types.ObjectId, ref: "Comment"},
     timeStamp: { type: Date, required: true}
 }, opts);
 
 CommentSchema.virtual('childComments').get(function() {
     return ChildComment.find({ parentComment: this._id })
     .exec(function(err, user) {
+        return user
     })
 })
 
