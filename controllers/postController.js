@@ -39,8 +39,9 @@ exports.post_get = asyncHandler(async (req, res, next) => {
     // example postid: 656df059c219a1d542f440a1
     const [ post, comments] = await Promise.all([
         Post.findById(req.params.postid).exec(),
-        // Comment.find({post: req.params.postid})
-        Comment.aggregate({from: 'comment'})
+        Comment.find({post: req.params.postid})
+
+        // Comment.aggregate({from: 'comment'})
     ])
 
     res.json({
