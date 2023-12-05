@@ -1,8 +1,6 @@
 const opts = { toJSON: { virtuals: true } };
 const mongoose = require('mongoose');
 
-const ChildComment = require('./childComment');
-
 const Schema = mongoose.Schema;
 
 const CommentSchema = new Schema({
@@ -12,11 +10,5 @@ const CommentSchema = new Schema({
     timeStamp: { type: Date, required: true}
 }, opts);
 
-CommentSchema.virtual('childComments').get(function() {
-    return ChildComment.find({ parentComment: this._id })
-    .exec(function(err, user) {
-        return user
-    })
-})
 
 module.exports = mongoose.model('Comment', CommentSchema);
