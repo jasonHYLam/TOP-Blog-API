@@ -25,7 +25,6 @@ async function main() {
     await createUsers();
     await createPosts();
     await createComments();
-    await createChildComments();
     console.log('Debug: Closing mongoose');
     mongoose.connection.close();
     console.log('Debug: ');
@@ -78,12 +77,11 @@ async function createPosts() {
     ])
 }
 
-async function commentCreate( index, text, author, post, parentComment) {
+async function commentCreate( index, text, author, post) {
     const comment = new Comment({
         text,
         author,
         post,
-        parentComment,
         timeStamp: Date(),
     });
     await comment.save();
@@ -97,7 +95,12 @@ async function createComments() {
             "This is the worst post I've ever seen.",
             users[1],
             posts[0],
-            null,
+            ),
+
+        commentCreate(0,
+            "Respectfully, I would disagree.",
+            users[0],
+            posts[0],
             ),
 
         commentCreate(1,
@@ -105,16 +108,5 @@ async function createComments() {
             users[1],
             posts[1],
             ),
-    ])
-}
-
-async function createChildComments() {
-    await Promise.all([
-        commentCreate(2,
-            "Test child comment. Please work.",
-            users[1],
-            null,
-            comments[0],
-            )
     ])
 }

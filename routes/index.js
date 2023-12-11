@@ -35,15 +35,16 @@ router.get('/create_new_post', getToken, postController.post_form_get);
 router.post('/create_new_post', postController.post_form_post);
 
 // may need something to delete and update a post
+router.delete('/home/:postid', postController.post_delete);
 
 
 router.get('/home/:postid', postController.post_get);
 
 router.post('/home/:postid', commentController.comment_post);
 
-router.put('/home/:postid', commentController.comment_update);
+router.put('/home/:postid/:commentid', commentController.comment_update);
 
-router.delete('/home/:postid', commentController.comment_delete);
+router.delete('/home/:postid/:commentid', commentController.comment_delete);
 
 
 module.exports = router;

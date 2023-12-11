@@ -1,18 +1,7 @@
 
-const { verify } = require('jsonwebtoken');
 const Post = require('../models/post');
 const Comment = require('../models/comment');
 const asyncHandler = require('express-async-handler');
-
-// function getToken(req, res, next) {
-//     const bearerAuth = req.headers['authorization'];
-//     if (bearerAuth) {
-//         const bearerToken = bearerAuth.split(' ')[1];
-//         req.token = bearerToken;
-//         return next();
-//     }
-//     res.sendStatus(403);
-// }
 
 exports.home_get = asyncHandler(async (req, res, next) => {
     const allPosts = await Post.find({}).exec()
@@ -47,7 +36,13 @@ exports.post_get = asyncHandler(async (req, res, next) => {
 })
 
 exports.post_delete = asyncHandler(async (req, res, next) => {
+    await Post.findByIdAndDelete(req.params.postid);
+    const allPosts = await Post.find().exec();
 
+    res.json({
+        message: 'Prey eliminated',
+        allPosts,
+    })
 })
 
 exports.post_update = asyncHandler(async (req, res, next) => {
