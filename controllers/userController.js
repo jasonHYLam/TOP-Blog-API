@@ -1,7 +1,5 @@
-
 require('dotenv').config();
 
-const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const asyncHandler = require('express-async-handler');
 const { body } = require('express-validator');
@@ -31,18 +29,18 @@ exports.signup_post = [
     asyncHandler(async (req, res, next) => {
         console.log('I assume this is gonna work...')
         console.log(req.body)
-        console.log(req.body.username)
-        console.log(req.body.password)
 
-        const user = new User({
-            username: req.body.username,
-            password: req.body.password,
+        bcrypt.hash(req.body.password, 10, async( err, hashedPassword ) => {
+            if (err) throw err;
+            else {
+                const user = new User({
+                    username: req.body.username,
+                    password: hashedPassword,
+                })
+                await user.save();
+            }
         })
-
-
-
     })
-
 ]
 
 
