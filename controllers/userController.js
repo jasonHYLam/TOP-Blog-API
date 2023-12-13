@@ -58,11 +58,12 @@ exports.login_post = asyncHandler(async (req, res, next) => {
     //     const user = await User.findOne({ })
 
     // }
-    const user = await User.findOne({ username: 'haachama' });
+    console.log('looking through a glass onion')
+    // const user = await User.findOne({ username: 'haachama' });
 
-    jwt.sign({ user }, process.env.JWT_SECRET_KEY, ( err, token ) => {
-        res.json(
-            token
-        )
-    })
+    // jwt.sign({ user }, process.env.JWT_SECRET_KEY, ( err, token ) => {
+    //     res.json(
+    //         token
+    //     )
+    // })
 })
