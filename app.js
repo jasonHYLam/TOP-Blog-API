@@ -6,6 +6,7 @@ const logger = require('morgan');
 const cors = require('cors');
 
 const passport = require('passport');
+require('./passportConfig/passport')(passport);
 
 const indexRouter = require('./routes/index');
 
