@@ -31,4 +31,7 @@ app.use(cors());
 
 app.use('/', indexRouter);
 
+// don't think i need passport initialize
+app.use(passport.initialize());
+
 module.exports = app;
