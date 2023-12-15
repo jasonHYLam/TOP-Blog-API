@@ -54,22 +54,16 @@ exports.login_post = asyncHandler(async (req, res, next) => {
     // authenticate user manually, which requires finding the user, and comparing password
     // requires req.user and req.password I believe
     // perhaps req.body.username and req.body.password
-    console.log(req.body)
 
-    try {
         const user = await User.findOne({ username: req.body.username })
         console.log(user)
-        if (!user) {next(null, false, { message: 'incorrect username'})}
+        if (!user) res.status(401).send({ success: false, message: 'Incorrect username'})
 
         const match = await bcrypt.compare(req.body.password, user.password);
         console.log(match)
-        if (!match) {next(null, false, { message: 'incorrect password'})}
+        if (!match) res.status(401).send({ success: false, message: 'Incorrect password'})
 
         next(null, user)
-
-    } catch(err) {next(err)}
-    
-    console.log('validation passed')
 
     // jwt.sign({ user }, process.env.JWT_SECRET_KEY, ( err, token ) => {
     //     res.json(
