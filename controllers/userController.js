@@ -51,23 +51,22 @@ exports.login_get = asyncHandler(async (req, res, next) => {
 })
 
 exports.login_post = asyncHandler(async (req, res, next) => {
+
     // authenticate user manually, which requires finding the user, and comparing password
-    // requires req.user and req.password I believe
-    // perhaps req.body.username and req.body.password
+    const user = await User.findOne({ username: req.body.username })
+    if (!user) res.status(401).send({ success: false, message: 'Incorrect username/password'})
+        
+    const match = await bcrypt.compare(req.body.password, user.password);
+    if (!user || !match) res.status(401).send({ success: false, message: 'Incorrect username/password'})
 
-        const user = await User.findOne({ username: req.body.username })
-        console.log(user)
-        if (!user) res.status(401).send({ success: false, message: 'Incorrect username'})
+    // if successful, sign jwt
+    jwt.sign({ user }, process.env.JWT_SECRET_KEY, ( err, token ) => {
 
-        const match = await bcrypt.compare(req.body.password, user.password);
-        console.log(match)
-        if (!match) res.status(401).send({ success: false, message: 'Incorrect password'})
-
-        next(null, user)
-
-    // jwt.sign({ user }, process.env.JWT_SECRET_KEY, ( err, token ) => {
-    //     res.json(
-    //         token
-    //     )
-    // })
+        res.cookie('token', token, {httpOnly: true})
+        console.log('takinga  look at res object')
+        console.log(res)
+        res.json(
+            token
+        )
+    })
 })
