@@ -5,6 +5,8 @@ const userController = require('../controllers/userController');
 const postController = require('../controllers/postController');
 const commentController = require('../controllers/commentController');
 
+const passport = require('passport');
+
 function getToken(req, res, next) {
     const bearerAuth = req.headers['authorization'];
 
@@ -38,7 +40,7 @@ router.post('/create_new_post', postController.post_form_post);
 router.delete('/home/:postid', postController.post_delete);
 
 
-router.get('/home/:postid', postController.post_get);
+router.get('/home/:postid', passport.authenticate('jwt', {session: false}), postController.post_get);
 
 router.post('/home/:postid', commentController.comment_post);
 

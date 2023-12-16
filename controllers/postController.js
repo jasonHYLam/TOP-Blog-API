@@ -23,6 +23,11 @@ exports.post_form_post = asyncHandler(async (req, res, next) => {
 })
 exports.post_get = asyncHandler(async (req, res, next) => {
 
+    // console.log('looking for REQ')
+    // console.log(req)
+    // console.log(' ')
+    console.log('looking for COOKIES')
+    console.log(req.cookies)
     // example postid: 656df059c219a1d542f440a1
     const [ post, comments] = await Promise.all([
         Post.findById(req.params.postid).exec(),
