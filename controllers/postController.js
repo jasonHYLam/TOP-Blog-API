@@ -1,7 +1,7 @@
-
+const asyncHandler = require('express-async-handler');
+const passport = require('passport');
 const Post = require('../models/post');
 const Comment = require('../models/comment');
-const asyncHandler = require('express-async-handler');
 
 exports.home_get = asyncHandler(async (req, res, next) => {
     const allPosts = await Post.find({}).exec()
@@ -23,9 +23,9 @@ exports.post_form_post = asyncHandler(async (req, res, next) => {
 })
 exports.post_get = asyncHandler(async (req, res, next) => {
 
-    // console.log('looking for REQ')
-    // console.log(req)
-    // console.log(' ')
+
+    // passport.authenticate('jwt', {session: false})
+    console.log('refresh')
     console.log('looking for COOKIES')
     console.log(req.cookies)
     // example postid: 656df059c219a1d542f440a1

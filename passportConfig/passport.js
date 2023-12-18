@@ -1,52 +1,58 @@
-const LocalStrategy = require('passport-local').Strategy;
-const JWTStrategy = require('passport-jwt').Strategy;
+const JwtStrategy = require('passport-jwt').Strategy;
 const { ExtractJwt } = require('passport-jwt');
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
+const passport = require('passport');
 
-module.exports = function(passport) {
-
+console.log('i cri evritiem')
 // localstrategy not required
-    // passport.use(
-    //     new LocalStrategy(async ( username, password, done ) => {
-    //         try {
-    //             const user = await User.findOne({ username: username });
-    //             if (!user) {
-    //                 return done( null, false, { message: 'Incorrect username' })
-    //             }
 
-    //             const match = await bcrypt.compare(password, user.password);
-    //             if (!match) {
-    //                 return done (null, false, { message: 'Incorrect password' })
-    //             }
-    //             return done(null, user)
-    //         }
-    //         catch(err) {
-    //             done(err)
-    //         }
-    //     })
-    // )
+    const extractCookie = (req) => {
+        const jwt = (req && req.cookies) ? req.cookies['token'] : null; 
+        console.log('trying to find a smidgeon of req.cookies anywhere')
+        console.log(req.cookies)
+        console.log('time to reveal the identity of jwt!')
+        console.log(jwt)
+        return jwt;
+    }
 
     passport.use(
-        new JWTStrategy(
+        new JwtStrategy(
             {
                 secretOrKey: process.env.JWT_SECRET_KEY,
-                jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+                jwtFromRequest: extractCookie,
+                // jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken,
             },
 
-            (jwt_payload, done) => {
-                console.log('is this being called')
+            async (jwt_payload, done) => {
+
+                // User.findOne({id: jwt_payload.id}, (err, user) => {
+                //     console.log(jwt_payload)
+                //     if (err) return done(err, false)
+                //     if (user) return done(null, user)
+                //     return done(null, false)
+                console.log('lets try take a look at jwt_payload')
                 console.log(jwt_payload)
-                // User.findOne({username: jwt_payload.username})
-                // if () return done(null, true)
+                // })
+                try {
+                    const user = await User.findById(jwt_payload.sub);
+                    console.log(user)
+                    if (user) return done(null, user)
+                    return done(null, false)
+                }
+                catch(err) {return done(err, false)}
+
                 // return done(null, false)
-            }
+
+            },
+            console.log('this is hell, pure hell'),
+            // console.log(req.cookies)
 
         )
     )
 
 
-}
+// }
 

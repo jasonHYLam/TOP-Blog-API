@@ -60,13 +60,17 @@ exports.login_post = asyncHandler(async (req, res, next) => {
     if (!user || !match) res.status(401).send({ success: false, message: 'Incorrect username/password'})
 
     // if successful, sign jwt
-    jwt.sign({ user }, process.env.JWT_SECRET_KEY, ( err, token ) => {
+    console.log(user)
+    // jwt.sign({ user }, process.env.JWT_SECRET_KEY, ( err, token ) => {
+    jwt.sign({ sub: user._id }, process.env.JWT_SECRET_KEY, ( err, token ) => {
 
         res.cookie('token', token, {httpOnly: true})
-        console.log('takinga  look at res object')
-        console.log(res)
-        res.json(
-            token
+        // console.log(res)
+        .json(
+            {
+            token,
+            message: 'Logged in...',
+            }
         )
     })
 })
