@@ -22,8 +22,10 @@ const passport = require('passport');
 
                 try {
                     const user = await User.findById(jwt_payload.sub);
-                    if (user) return done(null, user)
-                    return done(null, false)
+                    if (user) {
+                        return done(null, user)
+                    } 
+                        return done(null, false)
                 }
                 catch(err) {return done(err, false)}
             },
