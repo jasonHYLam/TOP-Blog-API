@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 exports.home_get = asyncHandler(async (req, res, next) => {
+    console.log(req.user)
     const allPosts = await Post.find({}).exec()
     res.json({
         message: 'Home get',
@@ -23,13 +24,12 @@ exports.post_form_get = [
 exports.post_form_post = asyncHandler(async (req, res, next) => {
 
 })
+
 exports.post_get = asyncHandler(async (req, res, next) => {
 
     // first i need to get the token from the cookie
-    console.log('looking for COOKIES')
     console.log(req.cookies)
     const user = req.user;
-    console.log('LOOKING FOR LOGGED IN USER EH')
     console.log(user)
 
     // example postid: 656df059c219a1d542f440a1
@@ -37,12 +37,6 @@ exports.post_get = asyncHandler(async (req, res, next) => {
         Post.findById(req.params.postid).exec(),
         Comment.find({post: req.params.postid})
     ])
-    console.log('POST')
-    console.log(post)
-    console.log('COMMENT')
-    console.log(comments)
-    console.log('USER')
-    console.log(user)
 
     res.json({
         post,
@@ -64,3 +58,4 @@ exports.post_delete = asyncHandler(async (req, res, next) => {
 exports.post_update = asyncHandler(async (req, res, next) => {
 
 })
+

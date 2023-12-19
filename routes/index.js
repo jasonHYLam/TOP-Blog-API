@@ -46,7 +46,7 @@ router.delete('/home/:postid', postController.post_delete);
 router.get('/home/:postid', requireAuth, postController.post_get);
 // router.get('/home/authenticate', passport.authenticate('jwt', {session: false}));
 
-router.get('/logout', userController.log_out)
+router.get('/logout', userController.log_out);
 
 router.post('/home/:postid', commentController.comment_post);
 
