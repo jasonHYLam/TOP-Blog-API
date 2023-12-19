@@ -2,6 +2,8 @@ const asyncHandler = require('express-async-handler');
 const passport = require('passport');
 const Post = require('../models/post');
 const Comment = require('../models/comment');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 exports.home_get = asyncHandler(async (req, res, next) => {
     const allPosts = await Post.find({}).exec()
@@ -23,10 +25,19 @@ exports.post_form_post = asyncHandler(async (req, res, next) => {
 })
 exports.post_get = asyncHandler(async (req, res, next) => {
 
-    // passport.authenticate('jwt', {session: false}),
-
+    // first i need to get the token from the cookie
     console.log('looking for COOKIES')
     console.log(req.cookies)
+
+    const jwt = req.cookies ? req.cookies.token : null;
+    console.log(jwt)
+
+
+    jwt.verify(jwt, process.env.JWT_SECRET_KEY, (err, decoded) => {
+        console.log(decoded)
+    })
+
+
     // example postid: 656df059c219a1d542f440a1
     const [ post, comments] = await Promise.all([
         Post.findById(req.params.postid).exec(),
