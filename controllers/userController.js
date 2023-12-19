@@ -74,3 +74,8 @@ exports.login_post = asyncHandler(async (req, res, next) => {
         )
     })
 })
+
+exports.log_out = asyncHandler(async (req, res, next) => {
+    // to logout, set a token that expires in 1 millisecond.
+    res.cookie('token', '', {maxAge: 1})
+})
