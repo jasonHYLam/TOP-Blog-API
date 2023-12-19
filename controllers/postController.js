@@ -28,25 +28,26 @@ exports.post_get = asyncHandler(async (req, res, next) => {
     // first i need to get the token from the cookie
     console.log('looking for COOKIES')
     console.log(req.cookies)
-
-    const jwt = req.cookies ? req.cookies.token : null;
-    console.log(jwt)
-
-
-    jwt.verify(jwt, process.env.JWT_SECRET_KEY, (err, decoded) => {
-        console.log(decoded)
-    })
-
+    const user = req.user;
+    console.log('LOOKING FOR LOGGED IN USER EH')
+    console.log(user)
 
     // example postid: 656df059c219a1d542f440a1
     const [ post, comments] = await Promise.all([
         Post.findById(req.params.postid).exec(),
         Comment.find({post: req.params.postid})
     ])
+    console.log('POST')
+    console.log(post)
+    console.log('COMMENT')
+    console.log(comments)
+    console.log('USER')
+    console.log(user)
 
     res.json({
         post,
         comments,
+        user,
     })
 })
 

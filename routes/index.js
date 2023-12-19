@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const {requireAuth} = require('../authMiddleware/authMiddleware');
 
 const userController = require('../controllers/userController');
 const postController = require('../controllers/postController');
@@ -41,7 +42,8 @@ router.delete('/home/:postid', postController.post_delete);
 
 
 // router.get('/home/:postid', passport.authenticate('jwt', {session: false}), postController.post_get);
-router.get('/home/:postid', postController.post_get);
+// router.get('/home/:postid', postController.post_get);
+router.get('/home/:postid', requireAuth, postController.post_get);
 // router.get('/home/authenticate', passport.authenticate('jwt', {session: false}));
 
 router.post('/home/:postid', commentController.comment_post);
