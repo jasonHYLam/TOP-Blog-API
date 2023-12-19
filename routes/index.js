@@ -40,7 +40,9 @@ router.post('/create_new_post', postController.post_form_post);
 router.delete('/home/:postid', postController.post_delete);
 
 
-router.get('/home/:postid', passport.authenticate('jwt', {session: false}), postController.post_get);
+// router.get('/home/:postid', passport.authenticate('jwt', {session: false}), postController.post_get);
+router.get('/home/:postid', postController.post_get);
+router.get('/home/authenticate', passport.authenticate('jwt', {session: false}));
 
 router.post('/home/:postid', commentController.comment_post);
 
