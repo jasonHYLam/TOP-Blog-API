@@ -24,8 +24,6 @@ exports.post_form_post = asyncHandler(async (req, res, next) => {
 exports.post_get = asyncHandler(async (req, res, next) => {
 
 
-    // passport.authenticate('jwt', {session: false})
-    console.log('refresh')
     console.log('looking for COOKIES')
     console.log(req.cookies)
     // example postid: 656df059c219a1d542f440a1
