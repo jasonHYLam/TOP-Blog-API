@@ -25,11 +25,11 @@ async function main() {
 
 app.use(passport.initialize());
 
-app.use((req, res, next) => {
-    console.log('hello this is hopefully the cookies')
-    console.log(req.cookies)
-    next();
-})
+// app.use((req, res, next) => {
+//     console.log('hello this is hopefully the cookies')
+//     console.log(req.cookies)
+//     next();
+// })
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

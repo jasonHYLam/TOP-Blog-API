@@ -5,32 +5,39 @@ const asyncHandler = require('express-async-handler');
 
 exports.comment_post = asyncHandler(async (req, res, next) => {
 
-    const author = await User.findOne({ username: 'haachama' }).exec();
-    const post = await Post.findById(req.params.postid).exec();
-    console.log(req.params)
-    console.log(req.params.postid)
-    // for some reason, unable to access post. i can access req.params
-    console.log(post)
+    console.log('checking out req.user for comment POST')
+    console.log(req.user)
 
-    const newComment = new Comment({
-        text: "testing new commento",
-        author,
-        post,
-        timeStamp: Date(),
-    });
+    console.log('checking out req.body')
+    console.log(req.body)
 
-    await newComment.save();
+    const author = await User.findOne({ username: 'marine' }).exec();
+    console.log(author)
+    // const post = await Post.findById(req.params.postid).exec();
+    // console.log(req.params)
+    // console.log(req.params.postid)
+    // // for some reason, unable to access post. i can access req.params
+    // console.log(post)
 
-    const comments = await Comment.find({ post: req.params.postid}).exec();
+    // const newComment = new Comment({
+    //     text: "testing new commento",
+    //     author,
+    //     post,
+    //     timeStamp: Date(),
+    // });
 
+    // await newComment.save();
+
+    // const comments = await Comment.find({ post: req.params.postid}).exec();
+
+    // // res.json({
+    // //     message: 'On your way'
+    // // })
     // res.json({
-    //     message: 'On your way'
+    //     message: 'Added new comment',
+    //     post,
+    //     comments,
     // })
-    res.json({
-        message: 'Added new comment',
-        post,
-        comments,
-    })
 })
 
 exports.comment_delete = asyncHandler(async (req, res, next) => {

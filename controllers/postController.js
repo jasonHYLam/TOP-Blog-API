@@ -27,16 +27,20 @@ exports.post_form_post = asyncHandler(async (req, res, next) => {
 
 exports.post_get = asyncHandler(async (req, res, next) => {
 
+    console.log('got the blog post page')
     // first i need to get the token from the cookie
-    console.log(req.cookies)
+    // console.log(req.cookies)
     const user = req.user;
+    console.log(`checking out req.user for post get`)
     console.log(user)
 
     // example postid: 656df059c219a1d542f440a1
-    const [ post, comments] = await Promise.all([
-        Post.findById(req.params.postid).exec(),
-        Comment.find({post: req.params.postid}).populate('author'),
+    const [ post, comments ] = await Promise.all([
+        await Post.findById(req.params.postid).exec(),
+        await Comment.find({post: req.params.postid}).populate('author').exec(),
     ])
+    // console.log('looking at comments object')
+    // console.log(comments)
 
     res.json({
         post,

@@ -48,7 +48,7 @@ router.get('/home/:postid', requireAuth, postController.post_get);
 
 router.get('/logout', userController.log_out);
 
-router.post('/home/:postid', commentController.comment_post);
+router.post('/home/:postid', requireAuth, commentController.comment_post);
 
 router.put('/home/:postid/:commentid', commentController.comment_update);
 
