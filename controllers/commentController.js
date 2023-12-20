@@ -11,20 +11,26 @@ exports.comment_post = asyncHandler(async (req, res, next) => {
     console.log('checking out req.body')
     console.log(req.body)
 
-    const author = await User.findOne({ username: 'marine' }).exec();
+    const author = await User.findOne({ username: req.user.username }).exec();
+
+    console.log('checking out author')
     console.log(author)
-    // const post = await Post.findById(req.params.postid).exec();
-    // console.log(req.params)
+    const post = await Post.findById(req.params.postid).exec();
+    console.log('checking out req.params')
+    console.log(req.params)
     // console.log(req.params.postid)
     // // for some reason, unable to access post. i can access req.params
     // console.log(post)
 
-    // const newComment = new Comment({
-    //     text: "testing new commento",
-    //     author,
-    //     post,
-    //     timeStamp: Date(),
-    // });
+    const newComment = new Comment({
+        text: req.body.comment,
+        author,
+        post,
+        timeStamp: Date(),
+    });
+
+    console.log('checking out newComment')
+    console.log(newComment)
 
     // await newComment.save();
 
