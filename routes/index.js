@@ -5,22 +5,23 @@ const {requireAuth} = require('../authMiddleware/authMiddleware');
 const userController = require('../controllers/userController');
 const postController = require('../controllers/postController');
 const commentController = require('../controllers/commentController');
+const adminController = require('../controllers/adminController');
 
-const passport = require('passport');
+// const passport = require('passport');
 
-function getToken(req, res, next) {
-    const bearerAuth = req.headers['authorization'];
+// function getToken(req, res, next) {
+//     const bearerAuth = req.headers['authorization'];
 
-    console.log(bearerAuth)
+//     console.log(bearerAuth)
 
-    if (typeof bearerAuth !== 'undefined') {
-        const bearerToken = bearerAuth.split(' ')[1];
-        req.token = bearerToken;
-        return next();
-    }
-    res.sendStatus(403);
+//     if (typeof bearerAuth !== 'undefined') {
+//         const bearerToken = bearerAuth.split(' ')[1];
+//         req.token = bearerToken;
+//         return next();
+//     }
+//     res.sendStatus(403);
 
-}
+// }
 
 /* GET home page. */
 router.get('/home', postController.home_get);
@@ -33,7 +34,8 @@ router.get('/login', userController.login_get);
 
 router.post('/login', userController.login_post);
 
-router.get('/create_new_post', getToken, postController.post_form_get);
+// router.get('/create_new_post', getToken, postController.post_form_get);
+router.get('/create_new_post', postController.post_form_get);
 
 router.post('/create_new_post', postController.post_form_post);
 
@@ -53,6 +55,9 @@ router.post('/home/:postid', requireAuth, commentController.comment_post);
 router.put('/home/:postid/:commentid', commentController.comment_update);
 
 router.delete('/home/:postid/:commentid', commentController.comment_delete);
+
+// for admin app
+router.post('/login_admin', adminController.admin_login)
 
 
 module.exports = router;
