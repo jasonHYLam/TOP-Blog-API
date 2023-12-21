@@ -32,18 +32,12 @@ exports.comment_post = asyncHandler(async (req, res, next) => {
     console.log('checking out newComment')
     console.log(newComment)
 
-    // await newComment.save();
+    await newComment.save();
 
-    // const comments = await Comment.find({ post: req.params.postid}).exec();
-
-    // // res.json({
-    // //     message: 'On your way'
-    // // })
-    // res.json({
-    //     message: 'Added new comment',
-    //     post,
-    //     comments,
-    // })
+    res.json({
+        message: 'Added new comment',
+        post,
+    })
 })
 
 exports.comment_delete = asyncHandler(async (req, res, next) => {
