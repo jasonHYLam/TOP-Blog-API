@@ -31,7 +31,7 @@ exports.requireAdminAuth = (req, res, next) => {
     console.log(req.cookies)
     let token = null;
     if (req.cookies && req.cookies.adminToken) token = req.cookies.adminToken
-    console.log(`checking token: ${token}`)
+    console.log(`checking ADMIN token: ${token}`)
 
     jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, decoded) => {
         if (err) return next() 

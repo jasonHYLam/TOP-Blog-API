@@ -3,7 +3,7 @@ const { body } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
-const {requireAuth} = require('../authMiddleware/authMiddleware');
+const Post = require('../models/post');
 require('dotenv').config();
 
 exports.admin_login = [
