@@ -59,7 +59,7 @@ router.delete('/home/:postid/:commentid', commentController.comment_delete);
 // for admin app
 // router.post('/login_admin', adminController.admin_login, requireAuth)
 router.post('/login_admin', adminController.admin_login)
-router.get('/home', requireAuth, postController.home_get);
+router.get('/admin_all_posts', requireAuth, adminController.all_posts);
 
 
 
