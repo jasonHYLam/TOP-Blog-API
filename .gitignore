@@ -8,3 +8,4 @@ node_modules/
 
 resetdb.js
 populatedb.js
+addAdminToDB.js

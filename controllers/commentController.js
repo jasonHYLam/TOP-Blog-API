@@ -16,6 +16,7 @@ exports.comment_post = asyncHandler(async (req, res, next) => {
     console.log('checking out author')
     console.log(author)
     const post = await Post.findById(req.params.postid).exec();
+    console.log()
     console.log('checking out req.params')
     console.log(req.params)
     // console.log(req.params.postid)

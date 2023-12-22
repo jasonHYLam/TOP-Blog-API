@@ -1,5 +1,7 @@
 #! /usr/bin/env node
 
+// to run, type: node populatedb
+
 require('dotenv').config();
 
 const Comment = require('./models/comment');

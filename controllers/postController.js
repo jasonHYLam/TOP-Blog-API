@@ -7,10 +7,12 @@ require('dotenv').config();
 
 exports.home_get = asyncHandler(async (req, res, next) => {
     console.log(req.user)
+    const user = req.user
     const allPosts = await Post.find({}).exec()
     res.json({
         message: 'Home get',
-        allPosts
+        allPosts,
+        user,
     })
 })
 

@@ -57,7 +57,8 @@ router.put('/home/:postid/:commentid', commentController.comment_update);
 router.delete('/home/:postid/:commentid', commentController.comment_delete);
 
 // for admin app
-router.post('/login_admin', adminController.admin_login)
+router.post('/login_admin', adminController.admin_login, requireAuth)
+
 
 
 module.exports = router;
