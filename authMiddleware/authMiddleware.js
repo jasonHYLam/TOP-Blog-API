@@ -4,7 +4,14 @@ const User = require('../models/user');
 
 exports.requireAuth = (req, res, next) => {
 
-    const token = req.cookies ? req.cookies.token : null;
+    console.log('checking cookies')
+    console.log(req.cookies)
+    let token = null;
+    if (req.cookies) {
+        if (req.cookies.token) token = req.cookies.token
+        else if (req.cookies.adminToken) token = req.cookies.adminToken
+    }
+    console.log(`checking token: ${token}`)
 
     jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, decoded) => {
         if (err) return next() 

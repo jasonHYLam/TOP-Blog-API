@@ -24,7 +24,7 @@ const adminController = require('../controllers/adminController');
 // }
 
 /* GET home page. */
-router.get('/home', postController.home_get);
+router.get('/home', requireAuth, postController.home_get);
 
 router.get('/signup', userController.signup_get);
 
@@ -57,7 +57,8 @@ router.put('/home/:postid/:commentid', commentController.comment_update);
 router.delete('/home/:postid/:commentid', commentController.comment_delete);
 
 // for admin app
-router.post('/login_admin', adminController.admin_login, requireAuth)
+// router.post('/login_admin', adminController.admin_login, requireAuth)
+router.post('/login_admin', adminController.admin_login)
 
 
 

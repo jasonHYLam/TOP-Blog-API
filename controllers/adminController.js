@@ -3,6 +3,7 @@ const { body } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
+const {requireAuth} = require('../authMiddleware/authMiddleware');
 require('dotenv').config();
 
 exports.admin_login = [
@@ -32,21 +33,17 @@ exports.admin_login = [
 
         if (!user.admin_status) res.status(401).send({ success: false, message: 'Not an admin!!'});
 
-        console.log('great success')
-
         // may need to sign a cookie at this stage
         jwt.sign({ sub: user._id }, process.env.JWT_SECRET_KEY, ( err, token ) => {
-            if (err)
+            if (err) throw err;
+            console.log('lets see the token eh')
+            console.log(token)
             res.cookie('adminToken', token, {httpOnly: true})
+            .json({
+                message: 'yatta...'
+            })
         })
-        
         // res.json() required to conditionally end fetch request
-        res.json({
-            message: 'yatta...'
-        })
-
-
-
     })
 
 ]
