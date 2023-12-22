@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {requireAuth} = require('../authMiddleware/authMiddleware');
+const { requireAuth, requireAdminAuth } = require('../authMiddleware/authMiddleware');
 
 const userController = require('../controllers/userController');
 const postController = require('../controllers/postController');
@@ -59,6 +59,7 @@ router.delete('/home/:postid/:commentid', commentController.comment_delete);
 // for admin app
 // router.post('/login_admin', adminController.admin_login, requireAuth)
 router.post('/login_admin', adminController.admin_login)
+router.get('/home', requireAuth, postController.home_get);
 
 
 

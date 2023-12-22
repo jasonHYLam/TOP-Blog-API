@@ -47,3 +47,14 @@ exports.admin_login = [
     })
 
 ]
+
+exports.all_posts = asyncHandler(async (req, res, next) => {
+    console.log(req.user)
+    const user = req.user
+    const allPosts = await Post.find({}).exec()
+    res.json({
+        message: 'Home get',
+        allPosts,
+        user,
+    })
+})

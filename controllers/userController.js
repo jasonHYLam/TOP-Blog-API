@@ -50,6 +50,7 @@ exports.login_get = asyncHandler(async (req, res, next) => {
 
 })
 
+// need to add backend validation eg. .trim().escape() for user and password i think
 exports.login_post = asyncHandler(async (req, res, next) => {
 
     // authenticate user manually, which requires finding the user, and comparing password
@@ -70,8 +71,7 @@ exports.login_post = asyncHandler(async (req, res, next) => {
             {
             token,
             message: 'Logged in...',
-            }
-        )
+            })
     })
 })
 
