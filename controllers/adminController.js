@@ -58,3 +58,9 @@ exports.all_posts = asyncHandler(async (req, res, next) => {
         user,
     })
 })
+
+exports.create_post = asyncHandler(async (req, res, next) => {
+
+
+
+})
