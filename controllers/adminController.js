@@ -65,12 +65,17 @@ exports.create_post = [
     body('title').trim().escape(),
     body('content').trim().escape(),
 
+
     asyncHandler(async (req, res, next) => {
+
+        const author = await User.findById(req.user._id);
+
         // the 'he' npm package is used to unescape the content data
         const post = new Post({
-            title: req.body.title,
+            title: he.decode(req.body.title),
             content: he.decode(req.body.content),
-            date: new Date()
+            date: new Date(),
+            author: author,
         })
 
         // Create post document and save
