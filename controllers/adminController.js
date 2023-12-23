@@ -75,6 +75,7 @@ exports.create_post = [
 
         // Create post document and save
         await post.save()
+        console.log('done saving?')
     })
 ]
 
