@@ -61,41 +61,20 @@ exports.all_posts = asyncHandler(async (req, res, next) => {
 })
 
 exports.create_post = [
-    // asyncHandler(async (req, res, next) => {
-    //     console.log('checking req body pre validation')
-    //     console.log(req.body)
-    //     // Validate input
-
-    //     // Create post document and save
-
-    // }),
+    // Validate input
     body('title').trim().escape(),
     body('content').trim().escape(),
 
-    // console.log('next, please validate'),
-
     asyncHandler(async (req, res, next) => {
-        console.log('checking req body post validation')
-        console.log(req.body)
-
-        console.log('checking out UNESCAPED content using he package')
-        console.log(he.decode(req.body.content))
-        // Validate input
-
-        // i may need to UNESCAPE the content
-
-        // Create post document and save
-        console.log('checking out req.user')
-        console.log(req.user)
-
+        // the 'he' npm package is used to unescape the content data
         const post = new Post({
             title: req.body.title,
-            content: req.body.content
-
-
+            content: he.decode(req.body.content),
+            date: new Date()
         })
 
-
+        // Create post document and save
+        await post.save()
     })
 ]
 
