@@ -6,7 +6,7 @@ const PostSchema = new Schema({
     title: {type: String, required: true},
     content: {type: String, required: true},
     date: {type: Date, required: true},
-    likes: {type: Number, required: true, min: 0, max: 999},
+    likes: {type: Number, required: true, min: 0, max: 999, default: 0},
     published_status: Boolean,
 
 })
