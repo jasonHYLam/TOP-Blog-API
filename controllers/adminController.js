@@ -52,7 +52,7 @@ exports.admin_login = [
 exports.all_posts = asyncHandler(async (req, res, next) => {
     console.log(req.user)
     const user = req.user
-    const allPosts = await Post.find({}).exec()
+    const allPosts = await Post.find({}).populate('author').exec()
     res.json({
         message: 'Home get',
         allPosts,
@@ -84,3 +84,7 @@ exports.create_post = [
     })
 ]
 
+exports.blog_post = asyncHandler(async (req, res, next) => {
+    console.log('checking out req.params')
+    console.log(req.params)
+})
