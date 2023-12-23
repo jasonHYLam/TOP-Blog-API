@@ -37,16 +37,12 @@ router.post('/login', userController.login_post);
 // router.get('/create_new_post', getToken, postController.post_form_get);
 router.get('/create_new_post', postController.post_form_get);
 
-router.post('/create_new_post', postController.post_form_post);
 
 // may need something to delete and update a post
 router.delete('/home/:postid', postController.post_delete);
 
 
-// router.get('/home/:postid', passport.authenticate('jwt', {session: false}), postController.post_get);
-// router.get('/home/:postid', postController.post_get);
 router.get('/home/:postid', requireAuth, postController.post_get);
-// router.get('/home/authenticate', passport.authenticate('jwt', {session: false}));
 
 router.get('/logout', userController.log_out);
 
@@ -59,8 +55,7 @@ router.delete('/home/:postid/:commentid', commentController.comment_delete);
 // for admin app
 router.post('/login_admin', adminController.admin_login)
 router.get('/admin_all_posts', requireAdminAuth, adminController.all_posts);
-router.post('/admin_create_posts', requireAdminAuth, adminController.create_post);
-
+router.post('/admin_create_post', requireAdminAuth, adminController.create_post);
 
 
 module.exports = router;

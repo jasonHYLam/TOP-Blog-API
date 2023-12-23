@@ -60,7 +60,7 @@ exports.all_posts = asyncHandler(async (req, res, next) => {
 })
 
 exports.create_post = asyncHandler(async (req, res, next) => {
-
-
-
+    // console.log('checking req body')
+    // console.log(req.body)
+    console.log('ai no')
 })
