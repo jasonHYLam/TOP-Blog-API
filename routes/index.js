@@ -56,6 +56,6 @@ router.delete('/home/:postid/:commentid', commentController.comment_delete);
 router.post('/login_admin', adminController.admin_login)
 router.get('/admin_all_posts', requireAdminAuth, adminController.all_posts);
 router.post('/admin_create_post', requireAdminAuth, adminController.create_post);
-router.get(`/admin_blog_post:postid`, requireAdminAuth, adminController.blog_post)
+router.get(`/admin_blog_post/:postid`, requireAdminAuth, adminController.blog_post)
 
 module.exports = router;
