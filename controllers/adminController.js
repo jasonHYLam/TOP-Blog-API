@@ -89,7 +89,7 @@ exports.blog_post = asyncHandler(async (req, res, next) => {
     console.log('checking out req.params')
     console.log(req.params.postid)
     const [ blogPost, comments ] = await Promise.all([
-        await Post.findById(req.params.postid).exec(),
+        await Post.findById(req.params.postid).populate('author').exec(),
         await Comment.find({post: req.params.postid}).populate('author').exec(),
     ])
 
