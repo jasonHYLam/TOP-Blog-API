@@ -98,3 +98,7 @@ exports.blog_post = asyncHandler(async (req, res, next) => {
         comments
     })
 })
+
+exports.blog_post_update = asyncHandler( async (req, res, next) => {
+    console.log('calling blog_post_update')
+})
