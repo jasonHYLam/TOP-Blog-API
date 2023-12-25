@@ -99,6 +99,46 @@ exports.blog_post = asyncHandler(async (req, res, next) => {
     })
 })
 
-exports.blog_post_update = asyncHandler( async (req, res, next) => {
-    console.log('calling blog_post_update')
+exports.blog_post_update = [
+    body('title').trim().escape(),
+    body('content').trim().escape(),
+
+    asyncHandler( async (req, res, next) => {
+        console.log('checking req params')
+        console.log(req.params.postid)
+
+        await Post.findByIdAndUpdate(req.params.postid, {
+            title: he.decode(req.body.title),
+            content: he.decode(req.body.content),
+        })
+
+        const [ blogPost, comments ] = await Promise.all([
+            await Post.findById(req.params.postid).populate('author', 'username').exec(),
+            await Comment.find({post: req.params.postid}).populate('author', 'username').exec(),
+        ])
+
+        res.json({
+            blogPost,
+            comments
+        })
+    })
+]
+
+exports.blog_post_change_publish = asyncHandler( async (req, res, next) => {
+    console.log('checking req params')
+    console.log(req.params.postid)
+
+    const postToUpdate = await Post.findById(req.params.postid).exec()
+    console.log('checking out post to update')
+    console.log(postToUpdate)
+    console.log(postToUpdate.published_status)
+    
+    // if (postToUpdate.published_status === true) {
+
+    // }
+
+    // await Post.findByIdAndUpdate(req.params.postid, {
+    // })
+
 })
+
