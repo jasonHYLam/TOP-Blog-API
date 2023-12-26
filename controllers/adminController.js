@@ -133,12 +133,18 @@ exports.blog_post_change_publish = asyncHandler( async (req, res, next) => {
     console.log(postToUpdate)
     console.log(postToUpdate.published_status)
     
-    // if (postToUpdate.published_status === true) {
-
-    // }
-
-    // await Post.findByIdAndUpdate(req.params.postid, {
-    // })
+    if (postToUpdate.published_status === false) {
+        await Post.findByIdAndUpdate(req.params.postid, {
+            published_status: true
+        })
+    } else if (postToUpdate.published_status === true) {
+        await Post.findByIdAndUpdate(req.params.postid, {
+            published_status: false
+        })
+    }
 
 })
 
+exports.blog_post_delete = asyncHandler(async (req, res, next) => {
+    await Post.findByIdAndDelete(req.params.postid)
+})

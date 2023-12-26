@@ -59,6 +59,7 @@ router.post('/admin_create_post', requireAdminAuth, adminController.create_post)
 router.get(`/admin_blog_post/:postid`, requireAdminAuth, adminController.blog_post)
 router.put(`/admin_blog_post/:postid`, requireAdminAuth, adminController.blog_post_update)
 router.put(`/admin_blog_post/:postid/change_publish`, requireAdminAuth, adminController.blog_post_change_publish)
+router.delete(`/admin_blog_post/:postid/delete_post`, requireAdminAuth, adminController.blog_post_delete)
 
 
 module.exports = router;
