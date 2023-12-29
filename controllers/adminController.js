@@ -77,7 +77,7 @@ exports.create_post = [
         const post = new Post({
             title: he.decode(req.body.title),
             content: he.decode(req.body.content),
-            date: new Date(),
+            date: Date(),
             author: author,
         })
 
@@ -94,12 +94,6 @@ exports.blog_post = asyncHandler(async (req, res, next) => {
         await Post.findById(req.params.postid).populate('author', 'username').exec(),
         await Comment.find({post: req.params.postid}).populate('author', 'username').exec(),
     ])
-
-        // console.log('checking blogPost')
-        // console.log(blogPost)
-
-        // console.log('checking blogPost stringified')
-        // console.log(JSON.stringify(blogPost))
 
     res.json({
         blogPost,

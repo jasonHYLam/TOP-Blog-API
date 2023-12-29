@@ -27,8 +27,8 @@ exports.post_get = asyncHandler(async (req, res, next) => {
 
     // example postid: 656df059c219a1d542f440a1
     const [ post, comments ] = await Promise.all([
-        await Post.findById(req.params.postid).exec(),
-        await Comment.find({post: req.params.postid}).populate('author').exec(),
+        await Post.findById(req.params.postid).populate('author', 'username').exec(),
+        await Comment.find({post: req.params.postid}).populate('author', 'username').exec(),
     ])
 
     res.json({

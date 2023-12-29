@@ -13,8 +13,8 @@ const PostSchema = new Schema({
 })
 
 // better time display
-PostSchema.virtual('timeStampFormatted').get(function() {
-    return DateTime.fromJSDate(this.timeStamp).toFormat('T dd/LL/yy')
+PostSchema.virtual('dateFormatted').get(function() {
+    return DateTime.fromJSDate(this.date).toFormat('TT dd/LL/yy')
 })
 
 module.exports = mongoose.model('Post', PostSchema);
