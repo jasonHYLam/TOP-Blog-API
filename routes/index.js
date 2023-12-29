@@ -30,6 +30,7 @@ router.get(`/admin_blog_post/:postid`, requireAdminAuth, adminController.blog_po
 router.put(`/admin_blog_post/:postid`, requireAdminAuth, adminController.blog_post_update)
 router.put(`/admin_blog_post/:postid/change_publish`, requireAdminAuth, adminController.blog_post_change_publish)
 router.delete(`/admin_blog_post/:postid/delete_post`, requireAdminAuth, adminController.blog_post_delete)
+router.post('/admin_blog_post/:postid', requireAdminAuth, commentController.comment_post);
 
 router.delete('/home/:postid/:commentid', commentController.comment_delete);
 

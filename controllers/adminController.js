@@ -88,18 +88,18 @@ exports.create_post = [
 ]
 
 exports.blog_post = asyncHandler(async (req, res, next) => {
-    console.log('checking out req.params')
-    console.log(req.params.postid)
+    // console.log('checking out req.params')
+    // console.log(req.params.postid)
     const [ blogPost, comments ] = await Promise.all([
         await Post.findById(req.params.postid).populate('author', 'username').exec(),
         await Comment.find({post: req.params.postid}).populate('author', 'username').exec(),
     ])
 
-        console.log('checking blogPost')
-        console.log(blogPost)
+        // console.log('checking blogPost')
+        // console.log(blogPost)
 
-        console.log('checking blogPost stringified')
-        console.log(JSON.stringify(blogPost))
+        // console.log('checking blogPost stringified')
+        // console.log(JSON.stringify(blogPost))
 
     res.json({
         blogPost,

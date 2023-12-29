@@ -4,21 +4,20 @@ const Post = require('../models/post');
 const asyncHandler = require('express-async-handler');
 
 exports.comment_post = asyncHandler(async (req, res, next) => {
+    console.log('checking out if comment_post is called')
 
-    console.log('checking out req.user for comment POST')
-    console.log(req.user)
+    // console.log('checking out req.user for comment POST')
+    // console.log(req.user)
 
     console.log('checking out req.body')
     console.log(req.body)
 
     const author = await User.findOne({ username: req.user.username }).exec();
-
     console.log('checking out author')
     console.log(author)
     const post = await Post.findById(req.params.postid).exec();
-    console.log()
-    console.log('checking out req.params')
-    console.log(req.params)
+    // console.log('checking out req.params')
+    // console.log(req.params)
     // console.log(req.params.postid)
     // // for some reason, unable to access post. i can access req.params
     // console.log(post)
