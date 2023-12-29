@@ -7,16 +7,6 @@ const bcrypt = require('bcryptjs');
 // const passport = require('passport');
 const jwt = require('jsonwebtoken');
 
-// exports.home_get = asyncHandler(async (req, res, next) => {
-//     res.json({
-//         message: 'Home get'
-//     })
-// })
-
-
-exports.signup_get = asyncHandler(async (req, res, next) => {
-
-})
 
 exports.signup_post = [
 
@@ -44,11 +34,6 @@ exports.signup_post = [
     })
 ]
 
-
-
-exports.login_get = asyncHandler(async (req, res, next) => {
-
-})
 
 // need to add backend validation eg. .trim().escape() for user and password i think
 exports.login_post = asyncHandler(async (req, res, next) => {

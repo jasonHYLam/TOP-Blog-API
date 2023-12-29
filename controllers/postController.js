@@ -16,17 +16,6 @@ exports.home_get = asyncHandler(async (req, res, next) => {
     })
 })
 
-exports.post_form_get = [
-    asyncHandler(async (req, res, next) => {
-        res.json({
-            message: 'morning all'
-        })
-    })
-]
-exports.post_form_post = asyncHandler(async (req, res, next) => {
-
-})
-
 exports.post_get = asyncHandler(async (req, res, next) => {
 
     console.log('got the blog post page')
@@ -41,8 +30,6 @@ exports.post_get = asyncHandler(async (req, res, next) => {
         await Post.findById(req.params.postid).exec(),
         await Comment.find({post: req.params.postid}).populate('author').exec(),
     ])
-    // console.log('looking at comments object')
-    // console.log(comments)
 
     res.json({
         post,
@@ -50,18 +37,3 @@ exports.post_get = asyncHandler(async (req, res, next) => {
         user,
     })
 })
-
-exports.post_delete = asyncHandler(async (req, res, next) => {
-    await Post.findByIdAndDelete(req.params.postid);
-    const allPosts = await Post.find().exec();
-
-    res.json({
-        message: 'Prey eliminated',
-        allPosts,
-    })
-})
-
-exports.post_update = asyncHandler(async (req, res, next) => {
-
-})
-

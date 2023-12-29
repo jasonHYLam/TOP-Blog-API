@@ -8,6 +8,8 @@ const Post = require('../models/post');
 const Comment = require('../models/comment');
 require('dotenv').config();
 
+// Contains all admin callbacks, including login/logout, access all posts, create/edit/deleting post, and delete comment.
+
 exports.admin_login = [
 
     body('username').trim().escape(),
