@@ -1,14 +1,12 @@
 const asyncHandler = require('express-async-handler');
-const passport = require('passport');
 const Post = require('../models/post');
 const Comment = require('../models/comment');
-const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 exports.home_get = asyncHandler(async (req, res, next) => {
     console.log(req.user)
     const user = req.user
-    const allPosts = await Post.find({}).exec()
+    const allPosts = await Post.find({}).populate('author', 'username').exec()
     res.json({
         message: 'Home get',
         allPosts,

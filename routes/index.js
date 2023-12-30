@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { requireAuth, requireAdminAuth } = require('../authMiddleware/authMiddleware');
+const { requireAuth, requireAdminAuth, getUser } = require('../authMiddleware/authMiddleware');
 
 const userController = require('../controllers/userController');
 const postController = require('../controllers/postController');
@@ -15,6 +15,8 @@ router.post('/signup', userController.signup_post);
 router.post('/login', userController.login_post);
 router.get('/home/:postid', requireAuth, postController.post_get);
 router.get('/logout', userController.log_out);
+
+router.get('/get_user', requireAuth, getUser);
 
 // Backend API routes for public and admin site: can create/edit comments
 router.post('/home/:postid', requireAuth, commentController.comment_post);

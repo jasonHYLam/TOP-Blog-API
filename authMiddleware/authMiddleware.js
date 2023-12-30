@@ -10,6 +10,8 @@ const User = require('../models/user');
 // corresponding user to req.user
 exports.requireAuth = (req, res, next) => {
 
+    console.log('merely checking if requireAuth is called')
+
     let token = null;
     if (req.cookies && req.cookies.token) token = req.cookies.token
 
@@ -19,7 +21,10 @@ exports.requireAuth = (req, res, next) => {
         try {
             const user = await User.findById(decoded.sub)
             req.user = user;
+            console.log('checking out user')
+            console.log(user)
             next() 
+            console.log('onto the next...')
         } catch {next()}
     })
 }
@@ -47,7 +52,7 @@ exports.requireAdminAuth = (req, res, next) => {
 }
 
 exports.getUser = (req, res, next) => {
-    console.log('checking out req.user')
+    console.log('checking out req.user for getUser')
     console.log(req.user)
 
     res.json({user: req.user})
