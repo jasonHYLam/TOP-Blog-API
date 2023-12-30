@@ -16,12 +16,7 @@ exports.home_get = asyncHandler(async (req, res, next) => {
 
 exports.post_get = asyncHandler(async (req, res, next) => {
 
-    console.log('got the blog post page')
-    // first i need to get the token from the cookie
-    // console.log(req.cookies)
     const user = req.user;
-    console.log(`checking out req.user for post get`)
-    console.log(user)
 
     // example postid: 656df059c219a1d542f440a1
     const [ post, comments ] = await Promise.all([
