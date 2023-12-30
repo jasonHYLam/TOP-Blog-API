@@ -45,3 +45,10 @@ exports.requireAdminAuth = (req, res, next) => {
         } catch {next()}
     })
 }
+
+exports.getUser = (req, res, next) => {
+    console.log('checking out req.user')
+    console.log(req.user)
+
+    res.json({user: req.user})
+}
