@@ -1,3 +1,4 @@
+const opts = { toJSON: { virtuals: true } };
 const mongoose = require('mongoose');
 const { DateTime } = require('luxon');
 
@@ -10,11 +11,11 @@ const PostSchema = new Schema({
     author: { type: Schema.Types.ObjectId, ref: "User"},
     likes: {type: Number, required: true, min: 0, max: 999, default: 0},
     published_status: {type: Boolean, default: false},
-})
+}, opts)
 
 // better time display
 PostSchema.virtual('dateFormatted').get(function() {
-    return DateTime.fromJSDate(this.date).toFormat('TT dd/LL/yy')
+    return DateTime.fromJSDate(this.date).toFormat('dd/LL/yy')
 })
 
 module.exports = mongoose.model('Post', PostSchema);

@@ -16,4 +16,6 @@ CommentSchema.virtual('timeStampFormatted').get(function() {
     return DateTime.fromJSDate(this.timeStamp).toFormat('T dd/LL/yy')
 })
 
+
+
 module.exports = mongoose.model('Comment', CommentSchema);

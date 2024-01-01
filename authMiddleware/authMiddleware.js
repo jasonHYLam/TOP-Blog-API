@@ -10,8 +10,6 @@ const User = require('../models/user');
 // corresponding user to req.user
 exports.requireAuth = (req, res, next) => {
 
-    console.log('merely checking if requireAuth is called')
-
     let token = null;
     if (req.cookies && req.cookies.token) token = req.cookies.token
 
@@ -21,10 +19,7 @@ exports.requireAuth = (req, res, next) => {
         try {
             const user = await User.findById(decoded.sub)
             req.user = user;
-            console.log('checking out user')
-            console.log(user)
             next() 
-            console.log('onto the next...')
         } catch {next()}
     })
 }
@@ -33,7 +28,6 @@ exports.requireAuth = (req, res, next) => {
 // If req.cookies.adminToken exists, then verify it with jwt.verify, and attach the
 // corresponding user to req.user
 exports.requireAdminAuth = (req, res, next) => {
-    console.log('calling requireAdminAuthhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
 
     let token = null;
     if (req.cookies && req.cookies.adminToken) token = req.cookies.adminToken
@@ -44,16 +38,11 @@ exports.requireAdminAuth = (req, res, next) => {
         try {
             const user = await User.findById(decoded.sub)
             req.user = user;
-            console.log('checking out user')
-            console.log(user)
             next() 
         } catch {next()}
     })
 }
 
 exports.getUser = (req, res, next) => {
-    console.log('checking out req.user for getUser')
-    console.log(req.user)
-
     res.json({user: req.user})
 }
