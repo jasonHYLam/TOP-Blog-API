@@ -47,7 +47,6 @@ exports.login_post = asyncHandler(async (req, res, next) => {
 
     // if successful, sign jwt
     console.log(user)
-    // jwt.sign({ user }, process.env.JWT_SECRET_KEY, ( err, token ) => {
     jwt.sign({ sub: user._id }, process.env.JWT_SECRET_KEY, ( err, token ) => {
 
         res.cookie('token', token, {httpOnly: true})

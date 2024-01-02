@@ -53,8 +53,9 @@ exports.admin_login = [
 ]
 
 exports.logout = asyncHandler(async (req, res, next) => {
+    console.log('checking adminlogout is called')
     req.user = null;
-    res.clearCookie('adminToken', {httpOnly: true})
+    res.clearCookie('adminToken', {httpOnly: true}).json()
 })
 
 exports.all_posts = asyncHandler(async (req, res, next) => {
