@@ -28,12 +28,19 @@ exports.requireAuth = (req, res, next) => {
 // If req.cookies.adminToken exists, then verify it with jwt.verify, and attach the
 // corresponding user to req.user
 exports.requireAdminAuth = (req, res, next) => {
+    console.log('checking requireAdminAuth is called')
 
     let token = null;
     if (req.cookies && req.cookies.adminToken) token = req.cookies.adminToken
 
     jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, decoded) => {
-        if (err) return next() 
+        if (err) {
+            console.log("seems there's error afoot")
+            // next()
+            res.send({msg: err})
+            return
+        } 
+        console.log('does this get called')
 
         try {
             const user = await User.findById(decoded.sub)
@@ -44,5 +51,7 @@ exports.requireAdminAuth = (req, res, next) => {
 }
 
 exports.getUser = (req, res, next) => {
-    res.json({user: req.user})
+    console.log('checking to see if req.user exists');
+    consolelog('req.user')
+    // res.json({user: req.user})
 }
