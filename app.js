@@ -19,6 +19,8 @@ async function main() {
     await mongoose.connect(mongoDB);
 }
 
+console.log('awake my love')
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

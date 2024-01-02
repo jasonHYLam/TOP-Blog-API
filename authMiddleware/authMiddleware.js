@@ -36,15 +36,14 @@ exports.requireAdminAuth = (req, res, next) => {
     jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, decoded) => {
         if (err) {
             console.log("seems there's error afoot")
-            // next()
-            res.send({msg: err})
-            return
+            return res.send({msg: err})
         } 
-        console.log('does this get called')
 
         try {
+            console.log('seems no error?')
             const user = await User.findById(decoded.sub)
             req.user = user;
+            console.log('about to call next...')
             next() 
         } catch {next()}
     })
@@ -52,6 +51,6 @@ exports.requireAdminAuth = (req, res, next) => {
 
 exports.getUser = (req, res, next) => {
     console.log('checking to see if req.user exists');
-    consolelog('req.user')
-    // res.json({user: req.user})
+    console.log('req.user')
+    res.json({user: req.user})
 }
