@@ -34,6 +34,8 @@ router.put(`/admin_blog_post/:postid/change_publish`, requireAdminAuth, adminCon
 router.delete(`/admin_blog_post/:postid/delete_post`, requireAdminAuth, adminController.blog_post_delete)
 router.post('/admin_blog_post/:postid', requireAdminAuth, commentController.comment_post);
 
+router.get('get_admin_user', requireAdminAuth, getUser);
+
 router.delete('/home/:postid/:commentid', commentController.comment_delete);
 
 module.exports = router;
