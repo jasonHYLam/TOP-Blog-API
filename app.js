@@ -26,7 +26,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors({credentials: true, origin: ['http://localhost:5173', 'http://localhost:5000', 'http://localhost:5174', ]}));
+app.use(cors({credentials: true, origin: [
+    process.env.ADMIN_FRONTEND,
+    process.env.PUBLIC_FRONTEND,
+]}));
 
 app.use('/', indexRouter);
 
