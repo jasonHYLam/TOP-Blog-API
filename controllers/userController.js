@@ -51,7 +51,8 @@ exports.login_post = asyncHandler(async (req, res, next) => {
 
         if (err) {res.send({msg: err})}
 
-        res.cookie('token', token, {httpOnly: true})
+        // res.cookie('token', token, {httpOnly: true})
+        res.cookie('token', token, )
         .json(
             {
             token,
@@ -62,6 +63,7 @@ exports.login_post = asyncHandler(async (req, res, next) => {
 
 exports.log_out = asyncHandler(async (req, res, next) => {
     req.user = null;
-    res.clearCookie('token', {httpOnly: true}).json({message: 'heh'});
+    // res.clearCookie('token', {httpOnly: true}).json({message: 'heh'});
+    res.clearCookie('token', ).json({message: 'heh'});
     console.log('done clearing')
 })
