@@ -16,12 +16,6 @@ exports.admin_login = [
     body('password').trim().escape(),
 
     asyncHandler(async (req, res, next) => {
-        // need to check admin password. set admin password in .env
-        // use bcrypt to compare
-
-        console.log(req.body)
-        // may need to check for an admin status
-        // now, how do i create this adminUser? i could potentially do something like populatedb.js
 
         if (req.body.username !== process.env.ADMIN_USERNAME) res.status(401).send({ success: false, message: 'Not right username'});
 
@@ -42,12 +36,17 @@ exports.admin_login = [
             if (err) throw err;
             console.log('lets see the token eh')
             console.log(token)
-            res.cookie('adminToken', token, {httpOnly: true})
+            res.cookie('adminToken', token, {
+                httpOnly: process.env.MODE === 'prod',
+                secure: process.env.MODE === 'prod',
+                sameSite: process.env.MODE === 'prod' ? "none" : 'lax',
+            
+            })
+            // res.json() required to conditionally end fetch request
             .json({
                 message: 'yatta...'
             })
         })
-        // res.json() required to conditionally end fetch request
     })
 
 ]
@@ -55,7 +54,11 @@ exports.admin_login = [
 exports.logout = asyncHandler(async (req, res, next) => {
     console.log('checking adminlogout is called')
     req.user = null;
-    res.clearCookie('adminToken', {httpOnly: true}).json()
+    res.clearCookie('adminToken', {
+        httpOnly: process.env.MODE === 'prod',
+        secure: process.env.MODE === 'prod',
+        sameSite: process.env.MODE === 'prod' ? "none" : 'lax',
+    }).json()
 })
 
 exports.all_posts = asyncHandler(async (req, res, next) => {
