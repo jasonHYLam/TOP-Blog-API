@@ -46,7 +46,6 @@ exports.login_post = asyncHandler(async (req, res, next) => {
     if (!user || !match) res.status(401).send({ success: false, message: 'Incorrect username/password'})
 
     // if successful, sign jwt
-    console.log(user)
     jwt.sign({ sub: user._id }, process.env.JWT_SECRET_KEY, ( err, token ) => {
 
         if (err) {res.send({msg: err})}
@@ -55,12 +54,18 @@ exports.login_post = asyncHandler(async (req, res, next) => {
 
         // res.cookie('token', token, {httpOnly: true})
         // res.cookie('token', token, )
-        res.cookie('token', token, {
-            httpOnly: process.env.MODE === 'prod',
-            secure: process.env.MODE === 'prod',
+            const httpOnly = process.env.MODE === 'prod';
+            const secure = process.env.MODE === 'prod';
             // for some reason, specifying sameSite: 'none' leads to none successful cookie send.
-            sameSite: process.env.MODE === 'prod' ? "none" : 'none',
-        })
+            const sameSite = process.env.MODE === 'prod' ? "none" : 'lax';
+
+        res.setHeader("Set-Cookie","HttpOnly;Secure;SameSite=None")
+        // res.cookie('token', token, {
+        //     httpOnly: process.env.MODE === 'prod',
+        //     secure: process.env.MODE === 'prod',
+        //     // for some reason, specifying sameSite: 'none' leads to none successful cookie send.
+        //     sameSite: process.env.MODE === 'prod' ? "none" : 'lax',
+        // })
         console.log('please let me get what I want')
         res.send({message:'ground control to major tom'})
     })
