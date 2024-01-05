@@ -56,7 +56,7 @@ exports.login_post = asyncHandler(async (req, res, next) => {
         res.cookie('token', token, {
             httpOnly: true,
             secure: true,
-            SameSite: 'None'
+            sameSite: false,
         })
         .json(
             {
