@@ -55,7 +55,7 @@ exports.login_post = asyncHandler(async (req, res, next) => {
             secure: process.env.MODE === 'prod',
             sameSite: process.env.MODE === 'prod' ? "none" : 'lax',
         })
-        res.send()
+        .json({})
     })
 })
 
