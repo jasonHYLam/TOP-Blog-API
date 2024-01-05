@@ -50,30 +50,21 @@ exports.login_post = asyncHandler(async (req, res, next) => {
 
         if (err) {res.send({msg: err})}
 
-        console.log('miserably trying to see what is going on ')
-
-        // res.cookie('token', token, {httpOnly: true})
-        // res.cookie('token', token, )
-            // const httpOnly = process.env.MODE === 'prod';
-            // const secure = process.env.MODE === 'prod';
-            // // for some reason, specifying sameSite: 'none' leads to none successful cookie send.
-            // const sameSite = process.env.MODE === 'prod' ? "none" : 'lax';
-
-        // res.setHeader("Set-Cookie",`token=${token};Path=/;HttpOnly;Secure;SameSite=None;`);
         res.cookie('token', token, {
             httpOnly: process.env.MODE === 'prod',
             secure: process.env.MODE === 'prod',
-            // for some reason, specifying sameSite: 'none' leads to none successful cookie send.
             sameSite: process.env.MODE === 'prod' ? "none" : 'lax',
         })
-        console.log('please let me get what I want')
-        res.send({message:'ground control to major tom'})
+        res.send()
     })
 })
 
 exports.log_out = asyncHandler(async (req, res, next) => {
     req.user = null;
-    // res.clearCookie('token', {httpOnly: true}).json({message: 'heh'});
-    res.clearCookie('token', ).json({message: 'heh'});
-    console.log('done clearing')
+    res.clearCookie('token', {
+        httpOnly: process.env.MODE === 'prod',
+        secure: process.env.MODE === 'prod',
+        sameSite: process.env.MODE === 'prod' ? "none" : 'lax',
+    })
+    .json({message: 'heh'});
 })
