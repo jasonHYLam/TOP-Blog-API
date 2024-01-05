@@ -54,12 +54,12 @@ exports.login_post = asyncHandler(async (req, res, next) => {
 
         // res.cookie('token', token, {httpOnly: true})
         // res.cookie('token', token, )
-            const httpOnly = process.env.MODE === 'prod';
-            const secure = process.env.MODE === 'prod';
-            // for some reason, specifying sameSite: 'none' leads to none successful cookie send.
-            const sameSite = process.env.MODE === 'prod' ? "none" : 'lax';
+            // const httpOnly = process.env.MODE === 'prod';
+            // const secure = process.env.MODE === 'prod';
+            // // for some reason, specifying sameSite: 'none' leads to none successful cookie send.
+            // const sameSite = process.env.MODE === 'prod' ? "none" : 'lax';
 
-        res.setHeader("Set-Cookie","HttpOnly;Secure;SameSite=None")
+        res.setHeader("Set-Cookie",`token=${token};Path=/;HttpOnly;Secure;SameSite=None;`);
         // res.cookie('token', token, {
         //     httpOnly: process.env.MODE === 'prod',
         //     secure: process.env.MODE === 'prod',
