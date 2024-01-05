@@ -54,15 +54,12 @@ exports.login_post = asyncHandler(async (req, res, next) => {
         // res.cookie('token', token, {httpOnly: true})
         // res.cookie('token', token, )
         res.cookie('token', token, {
-            httpOnly: true,
-            secure: true,
-            // sameSite: "lax",
+            httpOnly: process.env.MODE === 'prod',
+            secure: process.env.MODE === 'prod',
+            // for some reason, specifying sameSite: 'none' leads to none successful cookie send.
+            sameSite: process.env.MODE === 'prod' ? "none" : 'lax',
         })
-        .json(
-            {
-            token,
-            message: 'Logged in...',
-            })
+        res.send({message:'ground control to major tom'})
     })
 })
 
